@@ -15,7 +15,7 @@ function NotesScreen({ navigation }) {
         <TouchableOpacity onPress={addNote}>
           <Ionicons
             name= "ios-create-outline"
-            size= {30}
+            size= {40}
             color= "black"
             style= {{
               color: "black",
@@ -49,19 +49,16 @@ export default function App() {
          component={NotesScreen}
          options={{
            headerTitle: "Notes, Todo App",
+           headerTitleAlign: "center",
            headerTitleStyle: {
              fontWeight: "bold",
-             fontSize: 30,
+             fontSize: 24,
            },
            headerStyle: {
              height: 120,
              backgroundColor: "gray",
              borderBottomColor: "#ccc",
              borderBottomWidth: 1,
-           },
-           headerTitleStyle: {
-            fontSize: 24,
-            fontWeight: "bold",
            },
          }}
        />
