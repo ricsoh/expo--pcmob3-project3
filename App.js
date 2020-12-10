@@ -1,11 +1,39 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { createStackNavigator, HeaderTitle } from "@react-navigation/stack";
+import { Ionicons } from "@expo/vector-icons";
+import * as SQLite from "expo-sqlite";
 
 function NotesScreen({ navigation }) {
- return <View style={styles.container}></View>;
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity style={styles.button} onPress={addNote}>
+          <Ionicons
+            name="ios-create-outline"
+            size={30}
+            color="black"
+            style={{
+              color: "black",
+              marginRight: 10,
+            }}
+          />
+        </TouchableOpacity>
+      ),
+    });
+   });
+
+ return (
+  <View style={styles.container}>
+    <Text>Home Screen</Text>
+  </View>
+ );
+}
+
+function addNote() {
+  alert("Icon Pressed");
 }
 
 const Stack = createStackNavigator();
@@ -47,6 +75,17 @@ const styles = StyleSheet.create({
    alignItems: "center",
    justifyContent: "center",
  },
+ button: {
+  width: 56,
+  padding: 8,
+  borderRadius: 10,
+  marginRight: 15,
+  },
+  buttonText: {
+    fontSize: 12,
+    textAlign: 'center',
+    color: 'white',
+  },
 });
 
 
