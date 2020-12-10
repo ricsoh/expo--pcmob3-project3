@@ -6,16 +6,18 @@ import { createStackNavigator, HeaderTitle } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
 import * as SQLite from "expo-sqlite";
 
+const db = SQLite.openDatabase("notes.db");
+
 function NotesScreen({ navigation }) {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity style={styles.button} onPress={addNote}>
+        <TouchableOpacity onPress={addNote}>
           <Ionicons
-            name="ios-create-outline"
-            size={30}
-            color="black"
-            style={{
+            name= "ios-create-outline"
+            size= {30}
+            color= "black"
+            style= {{
               color: "black",
               marginRight: 10,
             }}
@@ -75,17 +77,6 @@ const styles = StyleSheet.create({
    alignItems: "center",
    justifyContent: "center",
  },
- button: {
-  width: 56,
-  padding: 8,
-  borderRadius: 10,
-  marginRight: 15,
-  },
-  buttonText: {
-    fontSize: 12,
-    textAlign: 'center',
-    color: 'white',
-  },
 });
 
 
