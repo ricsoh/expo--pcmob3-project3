@@ -35,12 +35,7 @@ function NotesScreen({ navigation }) {
    });
 
    function addNote() {
-    let newNote = {
-      title: "Sample new note",
-      done: false,
-      id: notes.length.toString(),
-    };
-    setNotes([...notes,]);
+    navigation.navigate("Add Note");
   }
 
   function renderItem({ item }) {
@@ -70,8 +65,45 @@ function NotesScreen({ navigation }) {
  );
 }
 
-function addNote() {
-  alert("Icon Pressed");
+const InnerStack = createStackNavigator();
+
+function NotesStack() {
+ return (
+   <InnerStack.Navigator>
+     <InnerStack.Screen
+       name="Notes"
+       component={NotesScreen}
+       options={{
+         headerTitle: "Notes, Todo App",
+         headerTitleAlign: "center",
+         headerTitleStyle: {
+           fontWeight: "bold",
+           fontSize: 24,
+         },
+         headerStyle: {
+           height: 120,
+           backgroundColor: "gray",
+           borderBottomColor: "#ccc",
+           borderBottomWidth: 1,
+         },
+       }}
+     />
+   </InnerStack.Navigator>
+ );
+}
+
+function AddScreen({ navigation }) {
+ return (
+   <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+     <Text>This is the add screen</Text>
+     <TouchableOpacity
+       onPress={() => navigation.goBack()}
+       style={{ padding: 10 }}
+     >
+       <Text style={{ color: "orange" }}>Dismiss</Text>
+     </TouchableOpacity>
+   </View>
+ );
 }
 
 const Stack = createStackNavigator();
@@ -79,25 +111,13 @@ const Stack = createStackNavigator();
 export default function App() {
  return (
    <NavigationContainer>
-     <Stack.Navigator>
+     <Stack.Navigator mode="modal" headerMode="none">
        <Stack.Screen
-         name="Notes"
-         component={NotesScreen}
-         options={{
-           headerTitle: "Notes, Todo App",
-           headerTitleAlign: "center",
-           headerTitleStyle: {
-             fontWeight: "bold",
-             fontSize: 24,
-           },
-           headerStyle: {
-             height: 120,
-             backgroundColor: "gray",
-             borderBottomColor: "#ccc",
-             borderBottomWidth: 1,
-           },
-         }}
+         name="Notes Stack"
+         component={NotesStack}
+         options={{ headerShown: false }}
        />
+       <Stack.Screen name="Add Note" component={AddScreen} />
      </Stack.Navigator>
    </NavigationContainer>
  );
