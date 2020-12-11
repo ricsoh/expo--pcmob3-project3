@@ -1,12 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import * as SQLite from "expo-sqlite";
 import NotesStack from "./screens/NotesStack";
 import AddScreen from "./screens/AddScreen";
-
-// Open database if exists else create
-const db = SQLite.openDatabase("notes.db");
 
 const Stack = createStackNavigator();
 
