@@ -101,7 +101,15 @@ function refreshNotes() {
     }
     return (
       <View style={styles.renderView}>
-        <Text style={{ textAlign: "left", fontSize: 16, color: doneTextColor, textDecorationLine: doneTextThru, marginRight: 180 }}>{item.title}</Text>
+        <Text style={{
+          textAlign: "left",
+          fontSize: 16,
+          width: "80%",
+          marginRight: 20,
+          color: doneTextColor,
+          textDecorationLine: doneTextThru,
+          }}
+          >{item.title}</Text>
         <TouchableOpacity onPress={() => EditNote(item)}>
           <Ionicons name= "ios-create-outline" size= {38} color= "green" />
         </TouchableOpacity>
