@@ -5,8 +5,8 @@ import * as SQLite from "expo-sqlite";
 
 // Open database if exists else create
 const db = SQLite.openDatabase("notes.db");
-var doneTextColor = "";
-var doneTextThru = "";
+var doneTextColor = "black";
+var doneTextThru = "none";
 
 export default function NotesScreen({ route, navigation }) {
 
@@ -96,7 +96,7 @@ function refreshNotes() {
       doneTextThru = "line-through";
     }else {
       doneTextColor = "black";
-      doneTextThru = "";
+      doneTextThru = "none";
     }
     return (
       <View style={styles.renderView}>
@@ -114,7 +114,7 @@ function refreshNotes() {
         style={{ width: "100%" }}
         data={notes}
         renderItem={renderItem}
-        //keyExtractor={(item) => item.id.toString()} // To fix the warning
+        keyExtractor={item => item.id.toString()} // To fix the warning
     />
     </View>
   );

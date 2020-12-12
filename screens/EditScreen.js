@@ -5,14 +5,23 @@ import * as SQLite from "expo-sqlite";
 // Open database if exists else create
 const db = SQLite.openDatabase("notes.db");
 var actionText = "TRUE";
-var doneText = "";
+var doneText = "done";
+var btnText = "";
 
 export default function EditScreen({ route, navigation }) {
   
   const [text, setText] = useState(route.params.title);
-  
+
+  // to change the Done bbutton text pending on the route.params.done
+  if (route.params.done == "done") {
+    btnText = "Un-Do";
+  } else {
+    btnText = "Done";
+  }
+ 
   function deleteItem(recItem) {
 
+    // This is for useEffect listening to route.params.action change
     if (actionText == "TRUE") {
       actionText = "FALSE";
     }else{actionText = "TRUE"}
@@ -28,6 +37,7 @@ export default function EditScreen({ route, navigation }) {
   
   function editItem(recItem) {
 
+    // This is for useEffect listening to route.params.action change
     if (actionText == "TRUE") {
       actionText = "FALSE";
     }else{actionText = "TRUE"}
@@ -43,13 +53,16 @@ export default function EditScreen({ route, navigation }) {
   
   function doneItem(recItem) {
     
+    // This is for useEffect listening to route.params.action change
     if (actionText == "TRUE") {
       actionText = "FALSE";
-    }else{actionText = "TRUE"}
+    }else{
+      actionText = "TRUE"
+    }
 
-    // Toggle between done and undone when done pressed
+    // Toggle between done and undo when done pressed
     if (route.params.done == "done") {
-      doneText = "un-do";
+      doneText = "not done";
     }else {
       doneText = "done";
     }
@@ -59,12 +72,12 @@ export default function EditScreen({ route, navigation }) {
         tx.executeSql("UPDATE notes SET done = ? WHERE id = ?", [ doneText, recItem,]);
     },
     );
-    alert(doneText + "!");
+    alert("Task " + doneText + "!");
     navigation.navigate("Notes", { action: actionText });
   }
 
   return (
-    <View style={{ paddingTop: 23, flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View style={{ paddingTop: 23, flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Edit your todo</Text>
       <TextInput
         placeholder= {text}
@@ -85,7 +98,7 @@ export default function EditScreen({ route, navigation }) {
           onPress={() => doneItem(route.params.id)}
           style={[styles.button, styles.doneButton]}
         >
-          <Text style={styles.buttonText}>Done</Text>
+          <Text style={styles.buttonText}>{btnText}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
