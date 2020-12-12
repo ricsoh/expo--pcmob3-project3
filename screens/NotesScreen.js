@@ -32,7 +32,8 @@ useEffect(() => {
 function refreshNotes() {
   db.transaction((tx) => {
     tx.executeSql(
-      "SELECT * FROM notes",
+      // Display descending order based on done item
+      "SELECT * FROM notes ORDER BY done DESC",
       null,
       (txObj, { rows: { _array } }) => setNotes(_array),
       // alternative
