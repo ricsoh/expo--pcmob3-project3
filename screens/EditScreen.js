@@ -6,6 +6,7 @@ import * as SQLite from "expo-sqlite";
 const db = SQLite.openDatabase("notes.db");
 var actionText = "TRUE";
 var doneText = "done";
+var doneInt = 0;
 var btnText = "";
 
 export default function EditScreen({ route, navigation }) {
@@ -13,7 +14,7 @@ export default function EditScreen({ route, navigation }) {
   const [text, setText] = useState(route.params.title);
 
   // to change the Done bbutton text pending on the route.params.done
-  if (route.params.done == "done") {
+  if (route.params.done == 1) {
     btnText = "Un-Do";
   } else {
     btnText = "Done";
@@ -61,15 +62,17 @@ export default function EditScreen({ route, navigation }) {
     }
 
     // Toggle between done and undo when done pressed
-    if (route.params.done == "done") {
+    if (route.params.done == 1) {
       doneText = "not done";
+      doneInt = 0;
     }else {
       doneText = "done";
+      doneInt = 1;      
     }
 
     db.transaction(
       (tx) => {
-        tx.executeSql("UPDATE notes SET done = ? WHERE id = ?", [ doneText, recItem,]);
+        tx.executeSql("UPDATE notes SET done = ? WHERE id = ?", [ doneInt, recItem,]);
     },
     );
     alert("Task " + doneText + "!");
