@@ -15,7 +15,7 @@ export default function EditScreen({ route, navigation }) {
 
   // to change the Done bbutton text pending on the route.params.done
   if (route.params.done == 1) {
-    btnText = "Un-Do";
+    btnText = "Undo";
   } else {
     btnText = "Done";
   }
@@ -63,7 +63,7 @@ export default function EditScreen({ route, navigation }) {
 
     // Toggle between done and undo when done pressed
     if (route.params.done == 1) {
-      doneText = "not done";
+      doneText = "Undo";
       doneInt = 0;
     }else {
       doneText = "done";
