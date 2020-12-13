@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, FlatList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from '@expo/vector-icons';
 import * as SQLite from "expo-sqlite";
 
 // Open database if exists else create
@@ -100,20 +101,20 @@ function refreshNotes() {
       doneTextThru = "none";
     }
     return (
-      <View style={styles.renderView}>
-        <Text style={{
-          textAlign: "left",
-          fontSize: 16,
-          width: "80%",
-          marginRight: 20,
-          color: doneTextColor,
-          textDecorationLine: doneTextThru,
-          }}
-          >{item.title}</Text>
-        <TouchableOpacity onPress={() => EditNote(item)}>
-          <Ionicons name= "ios-create-outline" size= {38} color= "green" />
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity onPress={() => EditNote(item)}>
+        <View style={styles.renderView}>
+          <Text style={{
+            textAlign: "left",
+            fontSize: 16,
+            width: "80%",
+            marginRight: 20,
+            color: doneTextColor,
+            textDecorationLine: doneTextThru,
+            }}
+            >{item.title}</Text>
+            <MaterialIcons name= "arrow-forward-ios" size= {24} color= "gray" />
+        </View>
+      </TouchableOpacity>
       );
   }
   
@@ -124,7 +125,7 @@ function refreshNotes() {
         data={notes}
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()} // To fix the warning
-    />
+      />
     </View>
   );
 }
